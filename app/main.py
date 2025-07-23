@@ -7,7 +7,7 @@ app = FastAPI()
 # ✅ Add CORS middleware after app is created
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001", "http://localhost:3002"],  # adjust based on your frontend
+    allow_origins=["http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "https://leaderboard-ui-murex.vercel.app/"],  # adjust based on your frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -15,4 +15,4 @@ app.add_middleware(
 
 # Then import and include your routers
 from app.routes import router
-app.include_router(router, prefix="")
+app.include_router(router, prefix="/api/leaderboard")
