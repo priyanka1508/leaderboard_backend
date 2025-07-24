@@ -10,13 +10,19 @@ async def submit_score(user_id: str, score: int):
     user_id = int(user_id)
     
     # Insert new game session
+    user_id = int(user_id)
+    
+    # Insert new game session
     await db.game_sessions.insert_one({
+        "user_id": user_id,
         "user_id": user_id,
         "score": score
     })
 
     # Atomically update leaderboard
+    # Atomically update leaderboard
     await db.leaderboard.update_one(
+        {"user_id": user_id},
         {"user_id": user_id},
         {"$inc": {"total_score": score}},
         upsert=True
@@ -40,6 +46,7 @@ async def get_top_players():
     raw_data = await db.leaderboard.find().sort("total_score", -1).limit(10).to_list(10)
     # Serialize ObjectId and return
     result = []
+    print("raw data: ", raw_data)
     for player in raw_data:
         player["_id"] = str(player["_id"])  
         result.append(player)
