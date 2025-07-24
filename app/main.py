@@ -1,9 +1,8 @@
 import os
 import newrelic.agent
 import re
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.middleware.base import BaseHTTPMiddleware
 # from newrelic.api.asgi_application import ASGIApplicationWrapper
 
 
@@ -17,16 +16,6 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 app = FastAPI()
 # app = ASGIApplicationWrapper(app)
-
-
-class NormalizePathMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request: Request, call_next):
-        # Replace multiple slashes (//, ///) with a single slash
-        request.scope["path"] = re.sub(r"/{2,}", "/", request.scope["path"])
-        return await call_next(request)
-
-app.add_middleware(NormalizePathMiddleware)
-
 
 app.add_middleware(
     CORSMiddleware,
