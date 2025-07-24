@@ -4,8 +4,8 @@ import httpx
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
-BACKEND_DOMAIN = os.getenv("BACKEND_DOMAIN")
+# load_dotenv()
+# BACKEND_DOMAIN = os.getenv("BACKEND_DOMAIN")
 
 async def submit_score(user_id: str, score: int):
     user_id = int(user_id)
@@ -25,12 +25,12 @@ async def submit_score(user_id: str, score: int):
 
     # Fire off rank calculation request (async but not awaited)
     # making this hack because in serverless deployment(vercel) we cannot create async task, it kills the process
-    try:
-        async with httpx.AsyncClient() as client:
-            # Don't await this (fire-and-forget)
-            client.post(BACKEND_DOMAIN + "api/leaderboard/recalculate")
-    except Exception:
-        pass  # silently fail
+    # try:
+    #     async with httpx.AsyncClient() as client:
+    #         # Don't await this (fire-and-forget)
+    #         client.post(BACKEND_DOMAIN + "api/leaderboard/recalculate")
+    # except Exception:
+    #     pass  # silently fail
 
 async def get_top_players():
     raw_data = await db.leaderboard.find().sort("total_score", -1).limit(10).to_list(10)
