@@ -1,6 +1,5 @@
 from app.db import db
 from bson import ObjectId
-import httpx
 from dotenv import load_dotenv
 import os
 

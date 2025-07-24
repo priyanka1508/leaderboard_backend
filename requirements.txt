@@ -4,4 +4,3 @@ motor
 pydantic
 python-dotenv
 newrelic
-httpx
