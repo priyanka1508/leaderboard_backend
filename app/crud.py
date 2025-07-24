@@ -33,8 +33,14 @@ async def submit_score(user_id: str, score: int):
         pass  # silently fail
 
 async def get_top_players():
-    players = await db.leaderboard.find().sort("total_score", -1).limit(10).to_list(length=10)
-    return [{**p, "_id": str(p["_id"])} for p in players]
+    raw_data = await db.leaderboard.find().sort("total_score", -1).limit(10).to_list(10)
+    # Serialize ObjectId and return
+    result = []
+    for player in raw_data:
+        player["_id"] = str(player["_id"])  
+        result.append(player)
+    
+    return result
 
 async def get_user_rank(user_id: str):
     user_id = int(user_id)
