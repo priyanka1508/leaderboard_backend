@@ -35,6 +35,7 @@ async def get_top_players():
     raw_data = await db.leaderboard.find().sort("total_score", -1).limit(10).to_list(10)
     # Serialize ObjectId and return
     result = []
+    print("raw data: ", raw_data)
     for player in raw_data:
         player["_id"] = str(player["_id"])  
         result.append(player)
