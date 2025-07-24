@@ -28,4 +28,4 @@ app.add_middleware(
 )
 
 from app.routes import router
-app.include_router(router, prefix="api/leaderboard")
+app.include_router(router, prefix="/api/leaderboard")
