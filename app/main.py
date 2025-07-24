@@ -1,6 +1,7 @@
 import os
 import newrelic.agent
-from fastapi import FastAPI
+import re
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 # from newrelic.api.asgi_application import ASGIApplicationWrapper
