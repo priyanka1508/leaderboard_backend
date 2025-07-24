@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from app.models import ScoreSubmission
-from app.crud import submit_score, get_top_players, get_user_rank
+from app.crud import submit_score, get_top_players, get_user_rank, recalculate_all_ranks
 
 router = APIRouter()
 
@@ -20,3 +20,8 @@ async def get_top_api():
 async def get_rank_api(user_id: str):
     print("received request for rank for userid: ", user_id)
     return await get_user_rank(user_id)
+
+@router.post("/recalculate")
+async def recalculate_api():
+    print("received request for recalculate")
+    return await recalculate_all_ranks()
