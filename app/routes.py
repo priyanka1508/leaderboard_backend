@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from app.models import ScoreSubmission
-from app.crud import submit_score, get_top_players, get_user_rank, recalculate_all_ranks
+from app.crud import submit_score, get_top_players, get_user_rank
 
 router = APIRouter()
 
